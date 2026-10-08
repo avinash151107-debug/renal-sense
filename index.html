@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renal Sense — Patient Kidney Health & Urine Protein Calculator</title>
+  <meta name="description" content="Proteinuria is a clinically aligned patient health tool to check, calculate, and understand urine protein levels (Dipstick, UACR, UPCR, and 24-hour collection) based on KDIGO 2024 guidelines.">
+  <meta name="keywords" content="Proteinuria, urine protein calculator, UACR calculator, UPCR ratio, albuminuria, foamy urine, kidney disease test, KDIGO">
+  <meta name="theme-color" content="#080D1A">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Glowing Background Elements -->
+  <div class="ambient-glow glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow glow-2" aria-hidden="true"></div>
+  <div class="ambient-glow glow-3" aria-hidden="true"></div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="site-header" id="header">
+    <div class="nav-container">
+      <a href="#home" class="brand-logo" aria-label="Proteinuria Home">
+        <div class="logo-icon-wrap">
+          <svg viewBox="0 0 36 36" fill="none" class="kidney-svg-logo" aria-hidden="true">
+            <path d="M18 4C10.5 4 6 9.5 6 16.5C6 24 11 31 18 31C21.5 31 24.5 29 26.5 26C28.5 23 30 19 30 15C30 9 25 4 18 4Z" fill="url(#kidney-grad)" opacity="0.95"/>
+            <path d="M18 10C15 10 12.5 12.5 12.5 16C12.5 19.5 15.5 22.5 18 24C17 21 17 17 18 14C19 12 20.5 10.5 22 10C20.5 10 19.2 10 18 10Z" fill="#38BDF8" opacity="0.85"/>
+            <circle cx="18" cy="18" r="3" fill="#FFFFFF"/>
+            <defs>
+              <linearGradient id="kidney-grad" x1="6" y1="4" x2="30" y2="31" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#0EA5E9"/>
+                <stop offset="1" stop-color="#0284C7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">RENAL SENSE</span>
+          <span class="brand-tag">CLINICAL CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
+          <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+          <li>
+            <a href="#calculator" class="nav-link nav-calc-link" id="nav-calculator">
+              <span class="calc-pulse-dot" aria-hidden="true"></span>
+              <span>Calculator</span>
+              <span class="badge-unique">Interactive</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-cta-group">
+        <a href="#calculator" class="btn-header-action" id="btn-quick-calc">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
+            <rect x="3" y="2" width="14" height="16" rx="2"></rect>
+            <line x1="7" y1="6" x2="13" y2="6"></line>
+            <line x1="7" y1="10" x2="9" y2="10"></line>
+            <line x1="11" y1="10" x2="13" y2="10"></line>
+            <line x1="7" y1="14" x2="9" y2="14"></line>
+            <line x1="11" y1="14" x2="13" y2="14"></line>
+          </svg>
+          <span>Calculate Protein</span>
+        </a>
+        <button class="mobile-toggle-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="#home" class="mobile-link" data-close-drawer>Home</a></li>
+        <li><a href="#about" class="mobile-link" data-close-drawer>About Proteinuria</a></li>
+        <li><a href="#calculator" class="mobile-link mobile-link-highlight" data-close-drawer>Interactive Calculator</a></li>
+      </ul>
+      <div class="mobile-drawer-footer">
+        <p class="drawer-disclaimer">Aligned with KDIGO 2024 Clinical Kidney Practice Guidelines.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero-section" id="home">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="badge-pill">
+            <span class="badge-dot"></span>
+            <span>KDIGO 2024 Kidney Health Precision</span>
+          </div>
+
+          <h1 class="hero-title">
+            Analyze &amp; Track <span class="gradient-text">Proteinuria</span> With Clinical Confidence.
+          </h1>
+
+          <p class="hero-description">
+            Protein in urine is one of the earliest vital markers of renal function. <strong>Proteinuria</strong> simplifies complex medical ratios into clear, actionable guidance whether you have a home test strip, a spot lab report, or a 24-hour collection.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#calculator" class="btn btn-primary btn-glow" id="hero-calc-cta">
+              <span>Start Urine Assessment</span>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="arrow-icon" aria-hidden="true">
+                <path d="M4 10h12M11 5l5 5-5 5"/>
+              </svg>
+            </a>
+            <a href="#about" class="btn btn-secondary" id="hero-about-cta">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
+                <circle cx="10" cy="10" r="8"></circle>
+                <line x1="10" y1="9" x2="10" y2="14"></line>
+                <circle cx="10" cy="6" r="0.5" fill="currentColor"></circle>
+              </svg>
+              <span>Learn About Symptoms</span>
+            </a>
+          </div>
+
+          <div class="hero-trust-metrics">
+            <div class="metric-item">
+              <span class="metric-value">3 Modes</span>
+              <span class="metric-label">Dipstick, UACR &amp; 24-Hr</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-value">KDIGO '24</span>
+              <span class="metric-label">Clinical Stage Mapping</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-value">100% Private</span>
+              <span class="metric-label">On-Device Computation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Display -->
+        <div class="hero-visual">
+          <div class="hero-card-stack">
+            <div class="hero-preview-card glass-panel">
+              <div class="preview-header">
+                <div class="preview-pill">Live Diagnostic Engine</div>
+                <div class="preview-pulse-status">
+                  <span class="pulse-indicator"></span> Ready
+                </div>
+              </div>
+
+              <!-- High-end Medical Tech Visual -->
+              <!-- <div class="hero-img-container">
+                <img src="assets/hero_kidney.jpg" alt="Translucent 3D illustration of human kidney filtration and molecular protein analysis" class="hero-illustration-img">
+                <div class="hero-img-overlay"></div>
+              </div> -->
+
+              <!-- Quick Dipstick Preview Bar -->
+              <div class="hero-preview-body">
+                <div class="preview-metric-row">
+                  <span class="label">Rapid Dipstick Range:</span>
+                  <span class="val-tag">Negative to 4+ (0 to &gt;1000 mg/dL)</span>
+                </div>
+                <div class="dipstick-simulation-bar" aria-label="Visual dipstick color range simulation">
+                  <span class="pad neg" title="Negative: Straw Yellow">Neg</span>
+                  <span class="pad trace" title="Trace: Light Yellow-Green">Trace</span>
+                  <span class="pad plus1" title="1+: Light Lime">1+</span>
+                  <span class="pad plus2" title="2+: Medium Green">2+</span>
+                  <span class="pad plus3" title="3+: Teal">3+</span>
+                  <span class="pad plus4" title="4+: Deep Blue-Green">4+</span>
+                </div>
+                <div class="preview-stats-grid">
+                  <div class="stat-mini">
+                    <span class="mini-label">UACR Normal</span>
+                    <span class="mini-val text-success">&lt; 30 mg/g</span>
+                  </div>
+                  <div class="stat-mini">
+                    <span class="mini-label">Microalbuminuria</span>
+                    <span class="mini-val text-warning">30 - 300 mg/g</span>
+                  </div>
+                  <div class="stat-mini">
+                    <span class="mini-label">Macroalbuminuria</span>
+                    <span class="mini-val text-danger">&gt; 300 mg/g</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section class="about-section" id="about">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="badge-pill">Clinical Foundation</span>
+        </div>
+        <h2 class="section-title text-center">
+          Understanding <span class="gradient-text">Proteinuria</span> &amp; Kidney Filtration
+        </h2>
+        <p class="section-subtitle text-center">
+          Healthy kidneys contain over one million nephrons. When their filtration barriers are strained, microscopic proteins like albumin spill into urine.
+        </p>
+
+        <!-- 3-Column Educational Cards -->
+        <div class="about-cards-grid">
+          
+          <div class="about-card glass-panel">
+            <div class="card-icon-bubble bg-cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon" aria-hidden="true">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <h3 class="card-title">What is Albumin &amp; Protein?</h3>
+            <p class="card-text">
+              Albumin is a major blood protein responsible for carrying nutrients and holding fluid within blood vessels. Normal kidney glomeruli retain 99.9% of albumin. Any steady spillover indicates a microscopic leak in the glomerular sieve.
+            </p>
+            <ul class="card-list">
+              <li><strong>Normal Excretion:</strong> &lt; 30 mg/day of albumin</li>
+              <li><strong>Early Marker:</strong> Signals kidney stress long before serum creatinine rises</li>
+            </ul>
+          </div>
+
+          <div class="about-card glass-panel">
+            <div class="card-icon-bubble bg-emerald">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon" aria-hidden="true">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Transient vs. Persistent</h3>
+            <p class="card-text">
+              Not all proteinuria indicates permanent chronic kidney disease (CKD). Protein levels can jump temporarily due to physiological stressors that relax glomerular selectivity.
+            </p>
+            <ul class="card-list">
+              <li><strong>Transient:</strong> Vigorous exercise, acute fever, dehydration, or stress</li>
+              <li><strong>Orthostatic:</strong> Excretion when standing that disappears when recumbent</li>
+              <li><strong>Persistent:</strong> Requires medical workup, blood pressure check, and eGFR</li>
+            </ul>
+          </div>
+
+          <div class="about-card glass-panel">
+            <div class="card-icon-bubble bg-purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <h3 class="card-title">Foamy Urine vs. Normal Bubbles</h3>
+            <p class="card-text">
+              One of the most frequent patient questions is whether toilet bowl foam indicates proteinuria. Protein creates a thick, persistent white lather resembling beer foam or whipped egg whites.
+            </p>
+            <ul class="card-list">
+              <li><strong>Harmless Bubbles:</strong> Rapid urinary stream; clear and pop within 60 seconds</li>
+              <li><strong>Protein Foam:</strong> Multiple layered, persistent white lather that requires multiple flushes</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Testing Modalities Breakdown -->
+        <div class="modalities-section">
+          <h3 class="modalities-heading">How Proteinuria is Clinically Tested</h3>
+          <div class="modalities-grid">
+            <div class="modality-card">
+              <div class="modality-badge">Method 1</div>
+              <h4>Dipstick Urinalysis</h4>
+              <p>Colorimetric chemical strip test. Quick, semi-quantitative, but sensitive to hydration (dilute urine can mask mild protein, concentrated urine can exaggerate it).</p>
+            </div>
+            <div class="modality-card">
+              <div class="modality-badge">Method 2 (Gold Standard)</div>
+              <h4>Spot UACR / UPCR Ratio</h4>
+              <p>Albumin or Protein divided by Creatinine in a spot urine sample. Corrects for hydration variation. Recommended by KDIGO &amp; ADA for diabetes and hypertension screenings.</p>
+            </div>
+            <div class="modality-card">
+              <div class="modality-badge">Method 3</div>
+              <h4>24-Hour Urine Collection</h4>
+              <p>Total protein excreted across a full 24-hour collection period. Essential for diagnosing Nephrotic Syndrome (&gt;3,500 mg/day) and complex glomerulonephritis.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== THE UNIQUE CALCULATOR SECTION ==================== -->
+    <section class="calculator-section" id="calculator">
+      <div class="section-container">
+        
+        <div class="calc-header-wrap text-center">
+          <div class="badge-pill badge-calc-hero">
+            <span class="badge-dot pulse-emerald"></span>
+            <span>Unique Clinical Diagnostic Tool</span>
+          </div>
+          <h2 class="section-title">
+            Interactive <span class="gradient-text">Proteinuria</span> Calculator
+          </h2>
+          <p class="section-subtitle">
+            Select your test type below. Our multi-engine calculator converts test strip colors, laboratory ratios, or 24-hour collection values into KDIGO risk staging and clinical recommendations.
+          </p>
+        </div>
+
+        <!-- MEMBER SELECTOR -->
+        <div class="member-bar" id="memberBar">
+          <div class="member-bar-top">
+            <div class="member-bar-text">
+              <span class="member-bar-title">Testing for</span>
+              <span class="member-bar-hint">Every member keeps their own reading history, table and graph.</span>
+            </div>
+            <button type="button" class="btn-ghost" id="btnAddMember" aria-expanded="false" aria-controls="memberAddForm">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
+                <line x1="10" y1="4" x2="10" y2="16"></line>
+                <line x1="4" y1="10" x2="16" y2="10"></line>
+              </svg>
+              <span>Add member</span>
+            </button>
+          </div>
+          <div class="member-chips" id="memberChips" role="tablist" aria-label="Select member"></div>
+          <div class="member-add-form" id="memberAddForm" style="display: none;">
+            <input type="text" id="newMemberName" class="form-input member-name-input" maxlength="24" placeholder="Member name, e.g. Mom" aria-label="New member name" autocomplete="off">
+            <button type="button" class="btn btn-primary btn-sm" id="btnConfirmAddMember">Add</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnCancelAddMember">Cancel</button>
+            <span class="member-form-error" id="memberFormError" role="alert"></span>
+          </div>
+        </div>
+
+        <!-- MAIN CALCULATOR CONSOLE -->
+        <div class="calculator-console" id="calcConsole">
+          
+          <!-- Mode Tabs -->
+          <div class="calc-tabs-bar" role="tablist" aria-label="Calculation Mode Selection">
+            <button class="calc-tab-btn active" id="tab-dipstick" role="tab" aria-selected="true" aria-controls="panel-dipstick">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="tab-icon" aria-hidden="true">
+                <rect x="3" y="4" width="14" height="12" rx="2"></rect>
+                <line x1="7" y1="4" x2="7" y2="16"></line>
+                <line x1="11" y1="4" x2="11" y2="16"></line>
+              </svg>
+              <span>1. Dipstick Color Match</span>
+            </button>
+
+            <button class="calc-tab-btn" id="tab-ratio" role="tab" aria-selected="false" aria-controls="panel-ratio">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="tab-icon" aria-hidden="true">
+                <circle cx="10" cy="10" r="7"></circle>
+                <path d="M10 6v4l2.5 2.5"></path>
+              </svg>
+              <span>2. Lab Ratio (UACR / UPCR)</span>
+            </button>
+
+            <button class="calc-tab-btn" id="tab-24hr" role="tab" aria-selected="false" aria-controls="panel-24hr">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="tab-icon" aria-hidden="true">
+                <path d="M6 3h8v3H6zM7 6v11a2 2 0 002 2h2a2 2 0 002-2V6"></path>
+                <line x1="6" y1="11" x2="14" y2="11"></line>
+              </svg>
+              <span>3. 24-Hour Collection</span>
+            </button>
+          </div>
+
+          <!-- Console Body Grid: Inputs on Left, Live Scorecard on Right -->
+          <div class="calc-body-grid">
+            
+            <!-- LEFT COLUMN: DYNAMIC INPUT CONTROLS -->
+            <div class="calc-inputs-column">
+
+              <!-- PANEL 1: DIPSTICK COLOR MATCH -->
+              <div class="calc-panel active" id="panel-dipstick" role="tabpanel" aria-labelledby="tab-dipstick">
+                <div class="panel-header">
+                  <h3 class="panel-heading">Dipstick Urinalysis Color Matcher</h3>
+                  <p class="panel-subtext">Match your reagent test strip pad color to the calibrated chart below:</p>
+                </div>
+
+                <!-- Swatches Grid -->
+                <div class="dipstick-selector-strip" role="radiogroup" aria-label="Dipstick protein pad color swatches">
+                  
+                  <button type="button" class="color-swatch-card active" data-pad="neg" data-mg="0" data-label="Negative (<10 mg/dL)">
+                    <span class="swatch-color-box swatch-neg" aria-hidden="true"></span>
+                    <span class="swatch-title">Negative</span>
+                    <span class="swatch-mg">&lt; 10 mg/dL</span>
+                  </button>
+
+                  <button type="button" class="color-swatch-card" data-pad="trace" data-mg="20" data-label="Trace (15–30 mg/dL)">
+                    <span class="swatch-color-box swatch-trace" aria-hidden="true"></span>
+                    <span class="swatch-title">Trace</span>
+                    <span class="swatch-mg">15–30 mg/dL</span>
+                  </button>
+
+                  <button type="button" class="color-swatch-card" data-pad="1plus" data-mg="65" data-label="1+ (30–100 mg/dL)">
+                    <span class="swatch-color-box swatch-1plus" aria-hidden="true"></span>
+                    <span class="swatch-title">1+</span>
+                    <span class="swatch-mg">30–100 mg/dL</span>
+                  </button>
+
+                  <button type="button" class="color-swatch-card" data-pad="2plus" data-mg="200" data-label="2+ (100–300 mg/dL)">
+                    <span class="swatch-color-box swatch-2plus" aria-hidden="true"></span>
+                    <span class="swatch-title">2+</span>
+                    <span class="swatch-mg">100–300 mg/dL</span>
+                  </button>
+
+                  <button type="button" class="color-swatch-card" data-pad="3plus" data-mg="650" data-label="3+ (300–1000 mg/dL)">
+                    <span class="swatch-color-box swatch-3plus" aria-hidden="true"></span>
+                    <span class="swatch-title">3+</span>
+                    <span class="swatch-mg">300–1000 mg/dL</span>
+                  </button>
+
+                  <button type="button" class="color-swatch-card" data-pad="4plus" data-mg="1500" data-label="4+ (>1000 mg/dL)">
+                    <span class="swatch-color-box swatch-4plus" aria-hidden="true"></span>
+                    <span class="swatch-title">4+</span>
+                    <span class="swatch-mg">&gt; 1000 mg/dL</span>
+                  </button>
+
+                </div>
+
+                <!-- Hydration / Specific Gravity Adjuster -->
+                <div class="hydration-adjuster-card">
+                  <div class="slider-title-row">
+                    <label for="hydrationSlider" class="slider-label">
+                      <svg viewBox="0 0 20 20" fill="currentColor" class="slider-icon" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 01.8.4l5 7a6 6 0 11-10.6 0l4-5.6.8-1.8z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Urine Hydration / Specific Gravity Calibration:</span>
+                    </label>
+                    <span class="hydration-status-badge" id="hydrationLabel">Normal Hydration (1.015 - 1.020)</span>
+                  </div>
+                  <input type="range" id="hydrationSlider" class="custom-range" min="1" max="3" step="1" value="2" aria-label="Urine Hydration Slider">
+                  <div class="range-markers">
+                    <span>Very Dilute (Clear water)</span>
+                    <span>Average / Normal</span>
+                    <span>Highly Concentrated (Dark Amber)</span>
+                  </div>
+                  <p class="field-hint">
+                    Clinical note: Very dilute urine can hide significant proteinuria. Highly concentrated morning urine can cause a false positive Trace or 1+ reading.
+                  </p>
+                </div>
+              </div>
+
+              <!-- PANEL 2: LAB RATIO (UACR & UPCR) -->
+              <div class="calc-panel" id="panel-ratio" role="tabpanel" aria-labelledby="tab-ratio">
+                <div class="panel-header">
+                  <h3 class="panel-heading">Spot Urine Quantitative Ratio Analyzer</h3>
+                  <p class="panel-subtext">Enter your laboratory report's Albumin-to-Creatinine or Protein-to-Creatinine Ratio:</p>
+                </div>
+
+                <!-- Ratio Subtype Toggle -->
+                <div class="ratio-type-toggle">
+                  <label class="toggle-option">
+                    <input type="radio" name="ratioType" value="uacr" id="ratioTypeUACR" checked>
+                    <span class="toggle-pill">UACR (Albumin / Creatinine)</span>
+                  </label>
+                  <label class="toggle-option">
+                    <input type="radio" name="ratioType" value="upcr" id="ratioTypeUPCR">
+                    <span class="toggle-pill">UPCR (Total Protein / Creatinine)</span>
+                  </label>
+                </div>
+
+                <!-- Direct Ratio or Calculate From Values -->
+                <div class="entry-mode-switch">
+                  <button type="button" class="entry-btn active" id="btnModeDirect">I have the Final Ratio</button>
+                  <button type="button" class="entry-btn" id="btnModeRaw">I have Albumin &amp; Creatinine separate</button>
+                </div>
+
+                <!-- Form: Direct Value -->
+                <div id="formDirectRatio" class="form-sub-block">
+                  <div class="input-pair">
+                    <label for="directRatioValue" class="form-label" id="directRatioLabel">Enter Measured UACR Value:</label>
+                    <div class="input-with-unit">
+                      <input type="number" id="directRatioValue" class="form-input" min="0" step="any" value="45" placeholder="e.g. 45">
+                      <select id="ratioUnitSelect" class="form-select" aria-label="Ratio Unit">
+                        <option value="mg_g" selected>mg/g (US standard)</option>
+                        <option value="mg_mmol">mg/mmol (SI standard)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Form: Raw Components (Calculated) -->
+                <div id="formRawComponents" class="form-sub-block" style="display: none;">
+                  <div class="input-grid-2">
+                    <div class="input-pair">
+                      <label for="rawProteinInput" class="form-label" id="rawProteinLabel">Urine Albumin (mg/L):</label>
+                      <input type="number" id="rawProteinInput" class="form-input" min="0" step="any" value="6.0" placeholder="e.g. 6.0">
+                    </div>
+                    <div class="input-pair">
+                      <label for="rawCreatinineInput" class="form-label">Urine Creatinine (mg/dL):</label>
+                      <input type="number" id="rawCreatinineInput" class="form-input" min="0" step="any" value="120" placeholder="e.g. 120">
+                    </div>
+                  </div>
+                  <p class="field-subtext">The tool converts units automatically to calculate the exact ratio.</p>
+                </div>
+
+              </div>
+
+              <!-- PANEL 3: 24-HOUR COLLECTION -->
+              <div class="calc-panel" id="panel-24hr" role="tabpanel" aria-labelledby="tab-24hr">
+                <div class="panel-header">
+                  <h3 class="panel-heading">24-Hour Urine Protein Excretion</h3>
+                  <p class="panel-subtext">Enter total collection volume and measured concentration from your laboratory report:</p>
+                </div>
+
+                <div class="input-grid-2">
+                  <div class="input-pair">
+                    <label for="input24Volume" class="form-label">Total 24-Hour Volume (mL):</label>
+                    <input type="number" id="input24Volume" class="form-input" min="100" max="10000" step="50" value="1800" placeholder="e.g. 1800">
+                    <span class="field-subtext">Typical adult volume: 1000–2500 mL</span>
+                  </div>
+
+                  <div class="input-pair">
+                    <label for="input24Concentration" class="form-label">Urine Protein Concentration:</label>
+                    <div class="input-with-unit">
+                      <input type="number" id="input24Concentration" class="form-input" min="0" step="any" value="25" placeholder="e.g. 25">
+                      <select id="select24Unit" class="form-select" aria-label="24hr Concentration Unit">
+                        <option value="mg_dl" selected>mg/dL</option>
+                        <option value="mg_l">mg/L</option>
+                        <option value="g_l">g/L</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-callout">
+                  <span class="callout-icon">&#9432;</span>
+                  <span>Calculated Excretion = [Volume (dL) &times; Concentration (mg/dL)] &rarr; mg/24 hours</span>
+                </div>
+              </div>
+
+              <!-- PATIENT CONTEXT & CONFOUNDING FACTORS -->
+              <div class="modifiers-block">
+                <h4 class="modifiers-title">
+                  <span>Patient Context Modifiers</span>
+                  <span class="tooltip-badge" title="These physiological factors can alter urine protein and help your doctor interpret the result correctly.">?</span>
+                </h4>
+                <div class="modifiers-checkbox-grid">
+                  
+                  <label class="custom-checkbox">
+                    <input type="checkbox" id="modExercise">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">Vigorous workout in past 24 hrs</span>
+                  </label>
+
+                  <label class="custom-checkbox">
+                    <input type="checkbox" id="modFever">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">Active fever or acute infection</span>
+                  </label>
+
+                  <label class="custom-checkbox">
+                    <input type="checkbox" id="modDiabetes">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">Diagnosed with Diabetes</span>
+                  </label>
+
+                  <label class="custom-checkbox">
+                    <input type="checkbox" id="modHypertension">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">High blood pressure (Hypertension)</span>
+                  </label>
+
+                  <label class="custom-checkbox">
+                    <input type="checkbox" id="modPregnancy">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">Currently Pregnant (Preeclampsia Risk Check)</span>
+                  </label>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: LIVE CLINICAL RESULTS SCORECARD -->
+            <div class="calc-results-column">
+              <div class="results-card glass-panel" id="resultsCard">
+                
+                <div class="results-header-row">
+                  <span class="results-tag">Clinical Risk Scorecard</span>
+                  <span class="kdigo-stage-badge" id="kdigoStageBadge">KDIGO A1: Normal</span>
+                </div>
+
+                <!-- Animated Arc Risk Gauge -->
+                <div class="gauge-container">
+                  <svg viewBox="0 0 240 135" class="gauge-svg" id="gaugeSvg" aria-hidden="true">
+                    <!-- Gauge Track Background -->
+                    <path d="M 25 120 A 95 95 0 0 1 215 120" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="16" stroke-linecap="round"/>
+                    
+                    <!-- Color Segment Markers -->
+                    <!-- Green: Normal -->
+                    <path d="M 25 120 A 95 95 0 0 1 76 43" fill="none" stroke="#10B981" stroke-width="6" opacity="0.45"/>
+                    <!-- Yellow: Microalbuminuria -->
+                    <path d="M 76 43 A 95 95 0 0 1 140 26" fill="none" stroke="#F59E0B" stroke-width="6" opacity="0.45"/>
+                    <!-- Red: Macroalbuminuria -->
+                    <path d="M 140 26 A 95 95 0 0 1 192 68" fill="none" stroke="#EF4444" stroke-width="6" opacity="0.45"/>
+                    <!-- Purple: Nephrotic -->
+                    <path d="M 192 68 A 95 95 0 0 1 215 120" fill="none" stroke="#A855F7" stroke-width="6" opacity="0.45"/>
+
+                    <!-- Dynamic Fill Arc -->
+                    <path id="gaugeTrackFill" d="M 25 120 A 95 95 0 0 1 215 120" fill="none" stroke="#10B981" stroke-width="16" stroke-linecap="round" stroke-dasharray="298" stroke-dashoffset="298" class="gauge-track-fill"/>
+
+                    <!-- Needle Pivot & Needle -->
+                    <!-- <g id="gaugeNeedleGroup" transform="translate(120, 120) rotate(-90)">
+                      <line x1="0" y1="0" x2="-75" y2="0" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
+                      <circle cx="-75" cy="0" r="4.5" fill="#38BDF8"/>
+                      <circle cx="0" cy="0" r="8" fill="#1E293B" stroke="#FFFFFF" stroke-width="3"/>
+                    </g> -->
+                  </svg>
+
+                  <div class="gauge-labels-row">
+                    <span class="gl-1 text-success">Normal</span>
+                    <span class="gl-2 text-warning">Mild/Micro</span>
+                    <span class="gl-3 text-danger">High/Macro</span>
+                    <span class="gl-4 text-purple">Nephrotic</span>
+                  </div>
+                </div>
+
+                <!-- Result Primary Metric -->
+                <div class="result-primary-display">
+                  <div class="gauge-primary-value">
+                    <span class="val-number" id="resultValueDisplay">0</span>
+                    <span class="val-unit" id="resultUnitDisplay">mg/dL</span>
+                  </div>
+                  <div class="gauge-severity-pill" id="resultSeverityPill">Normal Physiological Level</div>
+                </div>
+
+                <!-- Secondary Clinical Breakdown -->
+                <div class="result-breakdown-box">
+                  <div class="breakdown-row">
+                    <span class="b-label">Estimated 24-hr Excretion:</span>
+                    <span class="b-val" id="estExcretionDisplay">&lt; 150 mg/day</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span class="b-label">KDIGO Classification:</span>
+                    <span class="b-val" id="kdigoTextDisplay">Category A1 (Optimal)</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span class="b-label">Microscopic Assessment:</span>
+                    <span class="b-val" id="microAssessmentDisplay">No clinical proteinuria detected</span>
+                  </div>
+                </div>
+
+                <!-- Doctor / Guidance Notes Card -->
+                <div class="clinical-note-card" id="clinicalNoteCard">
+                  <div class="note-header">
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="note-icon" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="note-title" id="clinicalNoteTitle">Clinical Interpretation</span>
+                  </div>
+                  <p class="note-body" id="clinicalNoteBody">
+                    This result indicates normal glomerular filtration barrier integrity. Continue routine annual health screenings.
+                  </p>
+                </div>
+
+                <!-- Emergency Alert Container (Conditional) -->
+                <div class="emergency-alert-card" id="emergencyAlertCard" style="display: none;">
+                  <span class="alert-icon">&#9888;</span>
+                  <div class="alert-content">
+                    <strong class="alert-title" id="alertTitle">Medical Attention Recommended</strong>
+                    <p class="alert-text" id="alertText">Urine protein reading is significantly elevated.</p>
+                  </div>
+                </div>
+
+                <!-- Actions: Doctor Summary & Retest Guide -->
+                <div class="result-actions-flex">
+                  <button type="button" class="btn btn-save btn-block" id="btnSaveReading">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
+                      <path d="M5 3h10a1 1 0 011 1v13l-6-3.5L4 17V4a1 1 0 011-1z"></path>
+                    </svg>
+                    <span>Save Reading to History</span>
+                  </button>
+                  <p class="save-target-note">Saving for <strong id="saveTargetName">Me</strong></p>
+                  <button type="button" class="btn btn-primary btn-block btn-doctor-summary" id="btnOpenReport">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
+                      <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span>View &amp; Print Doctor Summary</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================== READING HISTORY ==================== -->
+        <div class="history-panel" id="historyPanel">
+          <div class="history-header">
+            <div>
+              <h3 class="history-title"><span class="gradient-text" id="historyMemberName">Me</span> &mdash; Reading History</h3>
+              <p class="history-sub">Last 6 saved readings, newest first</p>
+            </div>
+            <div class="history-actions">
+              <button type="button" class="btn-ghost btn-ghost-danger" id="btnClearHistory">Clear history</button>
+              <button type="button" class="btn-ghost btn-ghost-danger" id="btnRemoveMember">Remove member</button>
+            </div>
+          </div>
+
+          <div class="history-grid">
+            <div class="history-card">
+              <h4 class="history-card-title">Reading Log</h4>
+              <div class="history-table-wrap" id="historyTableWrap">
+                <table class="history-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Colour</th>
+                      <th scope="col">Result</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="historyTableBody"></tbody>
+                </table>
+              </div>
+              <p class="history-empty" id="historyEmpty" style="display: none;"></p>
+            </div>
+
+            <div class="history-card">
+              <h4 class="history-card-title">Reading Trend</h4>
+              <div class="history-chart-wrap" id="historyChart"></div>
+              <p class="chart-caption">Each point is placed on the same severity scale, so dipstick, lab ratio and 24-hour readings can be compared over time.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section class="faq-section" id="faq">
+      <div class="section-container faq-container">
+        <div class="section-badge-center">
+          <span class="badge-pill">Patient Questions</span>
+        </div>
+        <h2 class="section-title text-center">Frequently Asked <span class="gradient-text">Questions</span></h2>
+        
+        <div class="faq-accordion" id="faqAccordion">
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Why is spot UACR preferred over a simple dipstick test?</span>
+              <span class="faq-chevron" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                A dipstick measures protein concentration at a single moment. If you drink lots of water, your urine dilutes, which can mask significant protein loss. Conversely, dehydration concentrates urine, triggering a false-positive. The UACR divides albumin by creatinine, naturally standardizing for how dilute or concentrated the urine is.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can exercise or stress cause temporary protein in urine?</span>
+              <span class="faq-chevron" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Yes. Strenuous weightlifting, marathons, fever, or acute emotional stress can cause transient (functional) proteinuria. This typically clears within 24 to 48 hours without causing permanent harm to nephrons. If protein remains elevated after rest, further clinical evaluation is recommended.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Why is proteinuria screening crucial in Diabetes and Hypertension?</span>
+              <span class="faq-chevron" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                High blood sugar and elevated blood pressure damage the delicate microvasculature inside kidney glomeruli over years. Albuminuria is often the very first sign of diabetic nephropathy or hypertensive nephrosclerosis, appearing years before kidney function (eGFR) declines. Early detection enables protective therapies like ACE inhibitors, ARBs, and SGLT2 inhibitors.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What is the risk of proteinuria during pregnancy?</span>
+              <span class="faq-chevron" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                New or worsening proteinuria after the 20th week of pregnancy accompanied by high blood pressure can signify preeclampsia, a serious condition requiring immediate obstetric management. Any pregnant patient noticing sudden swelling, visual disturbances, or new dipstick protein should notify their obstetrician immediately.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== DOCTOR SUMMARY MODAL ==================== -->
+  <div class="modal-backdrop" id="reportModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-sheet glass-panel print-target">
+      
+      <div class="modal-header-row no-print">
+        <div class="modal-title-group">
+          <div class="badge-pill">Physician Handout</div>
+          <h3 class="modal-heading" id="modalTitle">Proteinuria Assessment Report</h3>
+        </div>
+        <button class="modal-close-btn" id="btnCloseReport" aria-label="Close report">&times;</button>
+      </div>
+
+      <!-- Printable Report Content -->
+      <div class="report-print-content">
+        
+        <div class="report-header-banner">
+          <div>
+            <h2 class="r-title">Proteinuria Health Assessment</h2>
+            <p class="r-sub">Generated for patient discussion with a Primary Care Physician or Nephrologist</p>
+          </div>
+          <div class="r-date-box">
+            <span class="r-label">Date Generated:</span>
+            <span class="r-val" id="reportDate">Today</span>
+          </div>
+        </div>
+
+        <div class="report-stat-highlight">
+          <div class="rep-col">
+            <span class="rep-label">Tested Modality:</span>
+            <strong class="rep-val" id="repModality">Dipstick Test</strong>
+          </div>
+          <div class="rep-col">
+            <span class="rep-label">Reported / Calculated Value:</span>
+            <strong class="rep-val text-primary" id="repValue">Negative (&lt;10 mg/dL)</strong>
+          </div>
+          <div class="rep-col">
+            <span class="rep-label">Estimated 24-hr Excretion:</span>
+            <strong class="rep-val" id="repExcretion">&lt; 150 mg/day</strong>
+          </div>
+          <div class="rep-col">
+            <span class="rep-label">KDIGO Clinical Stage:</span>
+            <strong class="rep-val" id="repKdigo">Stage A1 (Normal)</strong>
+          </div>
+        </div>
+
+        <div class="report-section-block">
+          <h4 class="report-block-heading">Patient Clinical Context &amp; Confounding Factors</h4>
+          <ul class="report-modifiers-list" id="reportModifiersList">
+            <li>No confounding physiological factors checked.</li>
+          </ul>
+        </div>
+
+        <div class="report-section-block">
+          <h4 class="report-block-heading">Clinical Guidance &amp; Interpretation</h4>
+          <p class="report-text" id="reportGuidanceText">
+            Results suggest normal physiological urinary protein excretion.
+          </p>
+        </div>
+
+        <div class="report-section-block">
+          <h4 class="report-block-heading">Recommended Questions for Your Doctor</h4>
+          <ul class="report-questions-list" id="reportQuestionsList">
+            <li>"Would you recommend verifying this with an early-morning spot UACR test?"</li>
+            <li>"How do my current blood pressure and serum creatinine levels align with this reading?"</li>
+          </ul>
+        </div>
+
+        <div class="report-disclaimer-box">
+          <p>
+            <strong>Notice to Healthcare Provider:</strong> This report is patient-generated using the Proteinuria Clinical Decision Support Tool based on KDIGO 2024 guidelines. It is intended to facilitate patient-physician dialogue and does not replace official laboratory diagnostic assays.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div class="modal-footer-actions no-print">
+        <button type="button" class="btn btn-secondary" id="btnDismissReport">Close</button>
+        <button type="button" class="btn btn-primary btn-glow" id="btnPrintReport">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
+            <polyline points="6 9 6 2 14 2 14 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="8" height="4"></rect>
+          </svg>
+          <span>Print / Save as PDF</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-container">
+      
+      <div class="footer-top-row">
+        
+        <div class="footer-brand-col">
+          <a href="#home" class="brand-logo footer-logo">
+            <div class="logo-icon-wrap">
+              <svg viewBox="0 0 36 36" fill="none" class="kidney-svg-logo" aria-hidden="true">
+                <path d="M18 4C10.5 4 6 9.5 6 16.5C6 24 11 31 18 31C21.5 31 24.5 29 26.5 26C28.5 23 30 19 30 15C30 9 25 4 18 4Z" fill="url(#kidney-grad-f)" opacity="0.95"/>
+                <path d="M18 10C15 10 12.5 12.5 12.5 16C12.5 19.5 15.5 22.5 18 24C17 21 17 17 18 14C19 12 20.5 10.5 22 10C20.5 10 19.2 10 18 10Z" fill="#38BDF8" opacity="0.85"/>
+                <circle cx="18" cy="18" r="3" fill="#FFFFFF"/>
+                <defs>
+                  <linearGradient id="kidney-grad-f" x1="6" y1="4" x2="30" y2="31" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#0EA5E9"/>
+                    <stop offset="1" stop-color="#0284C7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">Proteinuria</span>
+              <span class="brand-tag">PATIENT HEALTH SUITE</span>
+            </div>
+          </a>
+          <p class="footer-brand-description">
+            Empowering patients with transparent, accurate, and actionable kidney health insights. Interpreting proteinuria from rapid dipsticks to quantitative KDIGO ratios.
+          </p>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Proteinuria</a></li>
+            <li><a href="#calculator" class="footer-calc-link">Interactive Calculator</a></li>
+            <li><a href="#faq">Frequently Asked Questions</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-clinical-col">
+          <h4 class="footer-col-title">Clinical References</h4>
+          <ul class="footer-links">
+            <li><span class="ref-link">KDIGO 2024 CKD Evaluation Guidelines</span></li>
+            <li><span class="ref-link">National Kidney Foundation (NKF / KDOQI)</span></li>
+            <li><span class="ref-link">American Diabetes Association (ADA Standards)</span></li>
+            <li><span class="ref-link">American Society of Nephrology (ASN)</span></li>
+          </ul>
+        </div>
+
+        <div class="footer-alert-col">
+          <h4 class="footer-col-title">When to Seek Immediate Care</h4>
+          <p class="footer-warning-text">
+            Seek urgent medical attention if foamy or cola-colored urine occurs alongside sudden shortness of breath, rapid swelling of eyes/ankles, or severe high blood pressure during pregnancy.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-row">
+        <div class="legal-disclaimer">
+          <p>
+            <strong>Medical Disclaimer:</strong> Proteinuria is an educational health decision-support calculator designed to assist patients in understanding laboratory and dipstick ranges based on international clinical benchmarks (KDIGO 2024). It is not a substitute for professional medical advice, clinical diagnosis, or medical treatment. Always consult a qualified physician or nephrologist regarding your personal health status.
+          </p>
+        </div>
+        <div class="copyright-row">
+          <span>&copy; <span id="currentYear">2026</span> Proteinuria. Developed for patient kidney health awareness.</span>
+          <span class="back-to-top"><a href="#home">Back to Top &uarr;</a></span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
